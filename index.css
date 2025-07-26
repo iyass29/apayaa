@@ -1,0 +1,201 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+	color: grey;
+}
+
+#loading-screen {
+    background: #000;
+    color: blue;
+}
+
+#loading-screen .gameboy-screen {
+    width: 600px;
+    height: 400px;
+    background: #000;
+    border: 4px solid blue;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#loading-screen .screen-content {
+    text-align: center;
+    width: 100%;
+    padding: 40px;
+}
+
+#loading-screen .title {
+    font-size: 48px;
+    font-weight: bold;
+    color: blue;
+    margin-bottom: 40px;
+    letter-spacing: 4px;
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 10px white;
+    }
+    to {
+        text-shadow: 0 0 20px white, 0 0 30px white;
+    }
+}
+
+#loading-screen .loading-text {
+    font-size: 24px;
+    color: blue;
+    margin-bottom: 30px;
+    text-align: left;
+    padding-left: 20px;
+    animation: blink 1s infinite;
+    transition: opacity 0.3s ease; /* Tambahkan ini */
+}
+
+.progress-bar {
+    width: 80%;
+    height: 30px;
+    background: #333;
+    border: 2px solid blue;
+    margin: 0 auto 30px;
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: grey;
+    width: 38%;
+    transition: width 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#loading-screen .smile-text {
+    font-size: 32px;
+    color: #ffff00;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
+#gameboy-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	
+}
+
+
+.screen {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.screen.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.screen.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.screen.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loading-complete {
+    animation: loadingSuccess 0.8s ease-in-out forwards;
+}
+
+@keyframes loadingSuccess {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+#main-screen.screen-entering {
+    animation: mainScreenEnter 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes mainScreenEnter {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.02) translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
